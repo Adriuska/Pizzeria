@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Nova - API Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+
+        .result.success {
+            border-left-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .result.error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #333;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .info {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #1e40af;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🍕 Pizza Nova - API Test Panel</h1>
+
+        <div class="grid">
+            <!-- LOGIN -->
+            <div class="card">
+                <h2>🔐 Login</h2>
+                <div class="info">Prueba con: test@example.com / password123</div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="loginEmail" value="test@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input type="password" id="loginPassword" value="password123">
+                </div>
+                <button onclick="testLogin()">Enviar Login</button>
+                <div id="loginResult"></div>
+            </div>
+
+            <!-- FORGOT PASSWORD -->
+            <div class="card">
+                <h2>🔑 Recuperar Contraseña</h2>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="forgotEmail" value="test@example.com">
+                </div>
+                <button onclick="testForgotPassword()">Enviar Recuperación</button>
+                <div id="forgotResult"></div>
+            </div>
+
+            <!-- GET PIZZAS -->
+            <div class="card">
+                <h2>🍕 Obtener Pizzas</h2>
+                <div class="info">GET /api/menu/pizzas</div>
+                <button onclick="testGetPizzas()">Cargar Pizzas</button>
+                <div id="pizzasResult"></div>
+            </div>
+
+            <!-- GET CATEGORIES -->
+            <div class="card">
+                <h2>📂 Obtener Categorías</h2>
+                <div class="info">GET /api/menu/categories</div>
+                <button onclick="testGetCategories()">Cargar Categorías</button>
+                <div id="categoriesResult"></div>
+            </div>
+
+            <!-- CREATE ORDER -->
+            <div class="card">
+                <h2>📦 Crear Pedido</h2>
+                <div class="info">POST /api/orders</div>
+                <div class="form-group">
+                    <label>User ID:</label>
+                    <input type="number" id="orderId" value="1">
+                </div>
+                <div class="form-group">
+                    <label>JSON de Items:</label>
+                    <textarea id="orderItems" rows="4">[{"pizza_id":1,"size":"medium","quantity":2}]</textarea>
+                </div>
+                <button onclick="testCreateOrder()">Crear Pedido</button>
+                <div id="orderResult"></div>
+            </div>
+
+            <!-- GET CURRENT ORDER -->
+            <div class="card">
+                <h2>🛒 Obtener Pedido Actual</h2>
+                <div class="info">GET /api/orders/current?user_id=1</div>
+                <div class="form-group">
+                    <label>User ID:</label>
+                    <input type="number" id="currentUserId" value="1">
+                </div>
+                <button onclick="testGetCurrentOrder()">Obtener Pedido</button>
+                <div id="currentOrderResult"></div>
+            </div>
+
+            <!-- UPDATE ORDER -->
+            <div class="card">
+                <h2>✏️ Actualizar Pedido</h2>
+                <div class="info">PUT /api/orders/{id}</div>
+                <div class="form-group">
+                    <label>Order ID:</label>
+                    <input type="number" id="updateOrderId" value="1">
+                </div>
+                <div class="form-group">
+                    <label>Nuevo Estado:</label>
+                    <select id="orderStatus"
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option>pending</option>
+                        <option>confirmed</option>
+                        <option>preparing</option>
+                        <option>ready</option>
+                        <option>delivered</option>
+                        <option>cancelled</option>
+                    </select>
+                </div>
+                <button onclick="testUpdateOrder()">Actualizar Pedido</button>
+                <div id="updateOrderResult"></div>
+            </div>
+
+            <!-- DELETE ORDER -->
+            <div class="card">
+                <h2>🗑️ Eliminar Pedido</h2>
+                <div class="info">DELETE /api/orders/{id}</div>
+                <div class="form-group">
+                    <label>Order ID:</label>
+                    <input type="number" id="deleteOrderId" value="1">
+                </div>
+                <button onclick="testDeleteOrder()">Eliminar Pedido</button>
+                <div id="deleteOrderResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000/api';
+
+        async function request(method, endpoint, data = null) {
+            try {
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                const result = await response.json();
+
+                return {
+                    status: response.status,
+                    ok: response.ok,
+                    data: result
+                };
+            } catch (error) {
+                return {
+                    status: 0,
+                    ok: false,
+                    error: error.message
+                };
+            }
+        }
+
+        function displayResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            const statusClass = result.ok || result.status === 201 ? 'success' : 'error';
+            const statusText = result.ok || result.status === 201 ? '✓ Éxito' : '✗ Error';
+
+            element.className = `result ${statusClass}`;
+            element.innerHTML = `<div class="status ${statusClass}">[${result.status}] ${statusText}</div><pre>${JSON.stringify(result.data || result.error, null, 2)}</pre>`;
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const result = await request('POST', '/auth/login', { email, password });
+            displayResult('loginResult', result);
+        }
+
+        async function testForgotPassword() {
+            const email = document.getElementById('forgotEmail').value;
+
+            const result = await request('POST', '/auth/forgot-password', { email });
+            displayResult('forgotResult', result);
+        }
+
+        async function testGetPizzas() {
+            const result = await request('GET', '/menu/pizzas');
+            displayResult('pizzasResult', result);
+        }
+
+        async function testGetCategories() {
+            const result = await request('GET', '/menu/categories');
+            displayResult('categoriesResult', result);
+        }
+
+        async function testCreateOrder() {
+            const userId = document.getElementById('orderId').value;
+            const itemsText = document.getElementById('orderItems').value;
+
+            try {
+                const items = JSON.parse(itemsText);
+                const result = await request('POST', '/orders', {
+                    user_id: parseInt(userId),
+                    items
+                });
+                displayResult('orderResult', result);
+            } catch (e) {
+                document.getElementById('orderResult').className = 'result error';
+                document.getElementById('orderResult').innerHTML = `<div class="status error">✗ JSON Inválido</div><pre>${e.message}</pre>`;
+            }
+        }
+
+        async function testGetCurrentOrder() {
+            const userId = document.getElementById('currentUserId').value;
+            const result = await request('GET', `/orders/current?user_id=${userId}`);
+            displayResult('currentOrderResult', result);
+        }
+
+        async function testUpdateOrder() {
+            const orderId = document.getElementById('updateOrderId').value;
+            const status = document.getElementById('orderStatus').value;
+
+            const result = await request('PUT', `/orders/${orderId}`, { status });
+            displayResult('updateOrderResult', result);
+        }
+
+        async function testDeleteOrder() {
+            const orderId = document.getElementById('deleteOrderId').value;
+            const result = await request('DELETE', `/orders/${orderId}`);
+            displayResult('deleteOrderResult', result);
+        }
+
+        // Test de conexión al cargar
+        window.addEventListener('load', async () => {
+            console.log('🚀 Panel de prueba cargado');
+            console.log('Base URL:', API_BASE);
+        });
+    </script>
+</body>
+
+</html>

@@ -158,6 +158,7 @@ class OrderController extends AbstractController
             return $this->json([
                 'error' => 'INTERNAL_SERVER_ERROR',
                 'message' => 'Error interno del servidor',
+                'debug' => $e->getMessage(),
                 'code' => 500,
             ], 500);
         }
