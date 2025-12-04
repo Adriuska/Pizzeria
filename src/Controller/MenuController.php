@@ -77,4 +77,21 @@ class MenuController extends AbstractController
             ], 500);
         }
     }
+
+    #[Route('/prueba', name: 'test', methods: ['GET'])]
+    public function test(): JsonResponse
+    {
+        try {
+            return $this->json([
+                'success' => true,
+                'message' => 'Funciona perfectamente',
+            ], 200);
+        } catch (\Exception $e) {
+            return $this->json([
+                'error' => 'INTERNAL_SERVER_ERROR',
+                'message' => 'Error interno del servidor',
+                'code' => 500,
+            ], 500);
+        }
+    }
 }
