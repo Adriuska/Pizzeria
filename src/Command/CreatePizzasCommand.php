@@ -35,7 +35,7 @@ class CreatePizzasCommand extends Command
                 'description' => 'Pizza clásica con tomate, queso mozarela y albahaca fresca',
                 'ingredients' => 'Tomate, Mozarela, Albahaca, Aceite de oliva',
                 'category' => 'Clásicas',
-                'image_url' => 'https://via.placeholder.com/300?text=Margherita',
+                'image_url' => 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80',
                 'sizes' => [
                     ['size' => 'small', 'price' => '8.99', 'diameter' => '25cm', 'currency' => 'USD'],
                     ['size' => 'medium', 'price' => '12.99', 'diameter' => '30cm', 'currency' => 'USD'],
@@ -47,7 +47,7 @@ class CreatePizzasCommand extends Command
                 'description' => 'Pizza con tomate, queso y rodajas de pepperoni',
                 'ingredients' => 'Tomate, Mozarela, Pepperoni',
                 'category' => 'Carnes',
-                'image_url' => 'https://via.placeholder.com/300?text=Pepperoni',
+                'image_url' => 'https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg',
                 'sizes' => [
                     ['size' => 'small', 'price' => '9.99', 'diameter' => '25cm', 'currency' => 'USD'],
                     ['size' => 'medium', 'price' => '13.99', 'diameter' => '30cm', 'currency' => 'USD'],
@@ -59,7 +59,7 @@ class CreatePizzasCommand extends Command
                 'description' => 'Pizza con jamón, queso y piña',
                 'ingredients' => 'Tomate, Mozarela, Jamón, Piña',
                 'category' => 'Tropical',
-                'image_url' => 'https://via.placeholder.com/300?text=Hawaii',
+                'image_url' => 'https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?auto=format&fit=crop&w=900&q=80',
                 'sizes' => [
                     ['size' => 'small', 'price' => '10.99', 'diameter' => '25cm', 'currency' => 'USD'],
                     ['size' => 'medium', 'price' => '14.99', 'diameter' => '30cm', 'currency' => 'USD'],
@@ -71,7 +71,7 @@ class CreatePizzasCommand extends Command
                 'description' => 'Pizza con mozarela, cheddar, azul y parmesano',
                 'ingredients' => 'Mozarela, Cheddar, Queso Azul, Parmesano',
                 'category' => 'Vegetariana',
-                'image_url' => 'https://via.placeholder.com/300?text=Cuatro+Quesos',
+                'image_url' => 'https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=900&q=80',
                 'sizes' => [
                     ['size' => 'small', 'price' => '11.99', 'diameter' => '25cm', 'currency' => 'USD'],
                     ['size' => 'medium', 'price' => '15.99', 'diameter' => '30cm', 'currency' => 'USD'],
@@ -83,7 +83,7 @@ class CreatePizzasCommand extends Command
                 'description' => 'Pizza con carne molida, cebolla y champiñones',
                 'ingredients' => 'Tomate, Mozarela, Carne Molida, Cebolla, Champiñones',
                 'category' => 'Carnes',
-                'image_url' => 'https://via.placeholder.com/300?text=Carne+de+Res',
+                'image_url' => 'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=900&q=80',
                 'sizes' => [
                     ['size' => 'small', 'price' => '11.99', 'diameter' => '25cm', 'currency' => 'USD'],
                     ['size' => 'medium', 'price' => '15.99', 'diameter' => '30cm', 'currency' => 'USD'],
@@ -95,7 +95,7 @@ class CreatePizzasCommand extends Command
                 'description' => 'Pizza con brócoli, tomate, cebolla, pimiento y champiñones',
                 'ingredients' => 'Brócoli, Tomate, Cebolla, Pimiento Rojo, Champiñones, Aceitunas Negras',
                 'category' => 'Vegetariana',
-                'image_url' => 'https://via.placeholder.com/300?text=Vegetariana+Supreme',
+                'image_url' => 'https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&w=900',
                 'sizes' => [
                     ['size' => 'small', 'price' => '10.99', 'diameter' => '25cm', 'currency' => 'USD'],
                     ['size' => 'medium', 'price' => '14.99', 'diameter' => '30cm', 'currency' => 'USD'],
